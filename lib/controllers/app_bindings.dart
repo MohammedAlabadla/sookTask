@@ -1,11 +1,14 @@
 import 'package:get/instance_manager.dart';
-import 'package:sookps/controllers/repositories_controller.dart';
+import 'repositories_controller.dart';
+import 'search_controller.dart';
 
 class AppBindings implements Bindings {
   @override
   void dependencies() {
     //
-    Get.put(() => RepositoriesController(), permanent: true);
+    Get.lazyPut(() => RepositoriesController(), fenix: true);
+    Get.lazyPut(() => SearchController(), fenix: true);
+
     //
   }
 }

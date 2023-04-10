@@ -6,20 +6,20 @@ import 'connectivity.dart';
 import 'status_request.dart';
 
 class ApiRequest {
-  /////////////.............
-  ///
   ///
   // .. get-request
   static Future<RResponse> get(String path,
       {Map<String, dynamic>? params}) async {
     final Dio dio = Dio();
-    dio.options.contentType = 'application/json';
-    dio.options.headers['accept'] = 'application/json';
+    dio.options.headers['accept'] = 'application/vnd.github+json';
+    dio.options.headers['X-GitHub-Api-Version'] = '2022-11-28';
+    dio.options.headers['Authorization'] =
+        'Bearer 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';
+    // if (params?.isNotEmpty ?? false)
+    dio.options.queryParameters = params ?? {};
 
-    if (params?.isNotEmpty ?? false) dio.options.queryParameters = params!;
     if (await Reachability.isInternetConected()) {
       log(path);
-
       Response response;
       try {
         response = await dio.get(path);
