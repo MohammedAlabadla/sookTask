@@ -1,16 +1,44 @@
 # sookps
-
-A new Flutter project.
-
+sookps is simple project task
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+App Contains: 
+- splash screen.
+- organization fetching screen.
+- search screen and filter.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+App instructions:
+- Fetch repositories.
+- search for a repositories / users & simply switch between them.
+- Sort the repos that fetched via search.
+- Order the repos that fetched via search.
+- the app using Githup api.
+- The app used #pagination for huge return data
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+*** importance ***
+to fetch repositories or search ..
+you should pass ${token}  because this option has is authenticated
+
+you should put the ${token} at the class "repo_fetch_config" 
+the path //=> lib/configs/repo_fetch_config.dart
+
+**** token within sent email. ****
+
+// 
+
+if you want to change organization name, change ${orgSearchName} at the class "repo_fetch_config"
+the path //=> lib/configs/repo_fetch_config.dart. 
+
+then, save and press at refresh button the Appbar
+
+
+*** End ***
+Thank you .. 
+Mohammed Alabadla
+
+
+
+
+

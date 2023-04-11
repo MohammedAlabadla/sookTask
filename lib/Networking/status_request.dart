@@ -1,4 +1,4 @@
-enum StatusRequest {
+enum ViewStatus {
   loading,
   ideal,
   success,

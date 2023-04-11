@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class NoRepoWidget extends StatelessWidget {
-  const NoRepoWidget({super.key});
+class EmptyRepoWidget extends StatelessWidget {
+  const EmptyRepoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Text(
         'No repo found',
         style: TextStyle(
-          fontSize: 16,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w500,
           color: Colors.cyan,
         ),

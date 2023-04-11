@@ -9,39 +9,34 @@ import '../Networking/status_request.dart';
 
 class SearchController extends GetxController {
   // status
-  Rx<StatusRequest> viewStatus = StatusRequest.ideal.obs;
+  Rx<ViewStatus> viewStatus = ViewStatus.ideal.obs;
   //
-  Map<String, String> selectedSortField = {};
-  final sortFields = {
-    'best match': {'sort': '', 'order': ''},
-    'Most stars': {'sort': 'stars', 'order': 'desc'},
-    'Fewest stars': {'sort': 'stars', 'order': 'asc'},
-    'Most forks': {'sort': 'forks', 'order': 'desc'},
-    'Fewest forks': {'sort': 'forks', 'order': 'asc'},
-    'Recently updated': {'sort': 'updated', 'order': 'desc'},
-    'Least recently updated': {'sort': 'updated', 'order': 'asc'},
-  };
-
   //
-  RxList<Repo> repos = <Repo>[].obs;
+  RxBool isSearchForRepo = true.obs;
+  Map<String, String> selectedRepoSortField = {};
+  Map<String, String> selectedUserSortField = {};
   int page = 1;
   int perPage = 27;
   final searchTxtEdiCtrl = TextEditingController();
+
+  //======================= search-repo ================================
+  RxList<Repo> repos = <Repo>[].obs;
   //
-  searchRepo() async {
+  searchForRepos() async {
     // if (viewStatus.value == StatusRequest.loading) return;
     if (searchTxtEdiCtrl.text.isEmpty) {
       ShowToast.show(msg: 'Enter search text ..!');
       return;
     }
-    viewStatus(StatusRequest.loading);
+    viewStatus(ViewStatus.loading);
     var params = {
       'q': searchTxtEdiCtrl.text,
       'page': page,
       'per_page': perPage,
-      ...selectedSortField
+      ...selectedRepoSortField
     };
-    RResponse response = await ApiRequest.get(ApiUrl.search, params: params);
+    RResponse response =
+        await ApiRequest.get(ApiUrl.searchRepos, params: params);
     handleRequestStatus(
       response,
       onSucsses: () {
@@ -52,6 +47,57 @@ class SearchController extends GetxController {
       },
     ).whenComplete(() => viewStatus(response.statusRequest));
   }
+
+  //
+  //======================= search-users ================================
+  RxList<User> users = <User>[].obs;
+  //
+  searchForUsers() async {
+    // if (viewStatus.value == StatusRequest.loading) return;
+    if (searchTxtEdiCtrl.text.isEmpty) {
+      ShowToast.show(msg: 'Enter search text ..!');
+      return;
+    }
+    viewStatus(ViewStatus.loading);
+    var params = {
+      'q': searchTxtEdiCtrl.text,
+      'page': page,
+      'per_page': perPage,
+      ...selectedUserSortField
+    };
+    RResponse response =
+        await ApiRequest.get(ApiUrl.searchUser, params: params);
+    handleRequestStatus(
+      response,
+      onSucsses: () {
+        users.value = List<User>.from(
+          response.response?.data['items'].map((r) => User.fromJson(r)),
+        );
+        if (searchTxtEdiCtrl.text.isEmpty) users.clear();
+      },
+    ).whenComplete(() => viewStatus(response.statusRequest));
+  }
+
+  //
+  //============== SoRt FiElDs ===================
+  final sortRepoFields = {
+    'best match': {'sort': '', 'order': ''},
+    'Most stars': {'sort': 'stars', 'order': 'desc'},
+    'Fewest stars': {'sort': 'stars', 'order': 'asc'},
+    'Most forks': {'sort': 'forks', 'order': 'desc'},
+    'Fewest forks': {'sort': 'forks', 'order': 'asc'},
+    'Recently updated': {'sort': 'updated', 'order': 'desc'},
+    'Least recently updated': {'sort': 'updated', 'order': 'asc'},
+  };
+  final sortUserFields = {
+    'best match': {'sort': '', 'order': ''},
+    'Most followers': {'sort': 'followers', 'order': 'desc'},
+    'Fewest followers': {'sort': 'followers', 'order': 'asc'},
+    'Most repositories': {'sort': 'repositories', 'order': 'desc'},
+    'Fewest repositories': {'sort': 'repositories', 'order': 'asc'},
+    'Most recently joined': {'sort': 'joined', 'order': 'desc'},
+    'Least recently joined': {'sort': 'joined', 'order': 'asc'},
+  };
 
   ///
 }

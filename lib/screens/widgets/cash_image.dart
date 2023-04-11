@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 
 class CashImageW extends StatelessWidget {
   const CashImageW(
-      {Key? key,
-      required this.imageUrl,
-      this.fit = BoxFit.contain,
-      this.w,
-      this.h})
-      : super(key: key);
+      {required this.imageUrl, this.fit = BoxFit.contain, this.w, this.h});
   final String imageUrl;
   final BoxFit fit;
   final double? w;
@@ -17,7 +12,7 @@ class CashImageW extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 5, bottom: 5),
+      // margin: EdgeInsets.only(top: 5.h, bottom: 5.h),
       width: w,
       height: h,
       child: CachedNetworkImage(

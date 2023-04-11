@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:sookps/configs/repo_fetch_config.dart';
 
 import 'connectivity.dart';
 import 'status_request.dart';
@@ -13,9 +14,7 @@ class ApiRequest {
     final Dio dio = Dio();
     dio.options.headers['accept'] = 'application/vnd.github+json';
     dio.options.headers['X-GitHub-Api-Version'] = '2022-11-28';
-    dio.options.headers['Authorization'] =
-        'Bearer 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';
-    // if (params?.isNotEmpty ?? false)
+    dio.options.headers['Authorization'] = 'Bearer ${ReposfetchConfig.token}';
     dio.options.queryParameters = params ?? {};
 
     if (await Reachability.isInternetConected()) {
@@ -23,19 +22,19 @@ class ApiRequest {
       Response response;
       try {
         response = await dio.get(path);
-        return RResponse(StatusRequest.success, response);
+        return RResponse(ViewStatus.success, response);
       } on DioError catch (e) {
-        return RResponse(StatusRequest.serverFailure, e.response);
+        return RResponse(ViewStatus.serverFailure, e.response);
       }
     } else {
-      return const RResponse(StatusRequest.offline, null);
+      return const RResponse(ViewStatus.offline, null);
     }
   }
 }
 
 //
 class RResponse {
-  final StatusRequest statusRequest;
+  final ViewStatus statusRequest;
   final Response? response;
   const RResponse(this.statusRequest, this.response);
 }

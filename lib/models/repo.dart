@@ -59,7 +59,7 @@ class Repo {
   final String? name;
   final String? fullName;
   final bool? private;
-  final Owner? owner;
+  final User? owner;
   final String? htmlUrl;
   final String? description;
   final bool? fork;
@@ -104,7 +104,7 @@ class Repo {
         name: json["name"],
         fullName: json["full_name"],
         private: json["private"],
-        owner: json["owner"] == null ? null : Owner.fromJson(json["owner"]),
+        owner: json["owner"] == null ? null : User.fromJson(json["owner"]),
         htmlUrl: json["html_url"],
         description: json["description"],
         fork: json["fork"],
@@ -196,13 +196,7 @@ class Repo {
 }
 
 class License {
-  License({
-    this.key,
-    this.name,
-    this.spdxId,
-    this.url,
-    this.nodeId,
-  });
+  License({this.key, this.name, this.spdxId, this.url, this.nodeId});
 
   final String? key;
   final String? name;
@@ -227,8 +221,8 @@ class License {
       };
 }
 
-class Owner {
-  Owner({
+class User {
+  User({
     this.login,
     this.id,
     this.nodeId,
@@ -268,7 +262,7 @@ class Owner {
   final String? type;
   final bool? siteAdmin;
 
-  factory Owner.fromJson(Map<String, dynamic> json) => Owner(
+  factory User.fromJson(Map<String, dynamic> json) => User(
         login: json["login"],
         id: json["id"],
         nodeId: json["node_id"],

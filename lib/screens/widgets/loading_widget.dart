@@ -8,7 +8,7 @@ class LoadingWidget extends StatelessWidget {
       : super(key: key);
   //
   final Widget child;
-  final StatusRequest statusRequest;
+  final ViewStatus statusRequest;
   //
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,7 @@ class LoadingWidget extends StatelessWidget {
         //
         child,
         //
-        statusRequest == StatusRequest.loading
-            ? ShowProgress.show()
-            : Container(),
+        statusRequest == ViewStatus.loading ? ShowProgress.show() : Container(),
         //
       ],
     );
